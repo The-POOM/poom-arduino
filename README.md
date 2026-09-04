@@ -54,9 +54,12 @@ After calling `Poom.begin()`, the public API provides:
 
 - direct methods like `Poom.clear()`, `Poom.setCursor()`, `Poom.print()`,
   `Poom.show()`, `Poom.drawBitmap()`, `Poom.drawBitmapMasked()`,
-  `Poom.drawSprite()`, and `Poom.drawSpriteMasked()`,
+  `Poom.drawSprite()`, and `Poom.drawSpriteMasked()`, plus the explicitly named
+  page-packed methods
+  `Poom.drawPageBitmap()`, `Poom.drawPageBitmapMasked()`, and
+  `Poom.drawPageSprite()`,
   `Poom.setFrameRate()`, and `Poom.nextFrame()`
-- `Poom.graphics()` for bitmap and sprite helpers in Poom's native 1bpp format
+- `Poom.graphics()` for row-packed and page-packed 1bpp bitmap and sprite helpers
 - `Poom.buffer()` and `Poom.framebuffer()` for fast game rendering through
   Poom's 128x64 1bpp framebuffer
 - `Poom.screen()` for advanced SH1106 access when needed
@@ -64,6 +67,20 @@ After calling `Poom.begin()`, the public API provides:
 - `Poom.buzzer()` and `Poom.audio()` for simple tones and non-blocking
   `PoomNote` sequences
 - `Poom.leds()` for the onboard WS2812 LEDs
+
+`drawBitmap()` and `drawSprite()` continue to use row-packed data. Use the
+`drawPage*()` methods for page-packed assets, where each byte represents eight
+vertical pixels and bit 0 is the top pixel. Legacy assets that alternate an
+image byte and mask byte can be split into two arrays offline:
+
+```sh
+python3 extras/convert_interleaved_page_sprite.py sprite.h \
+    --width 16 --height 16 --name player -o player_page.h
+```
+
+The generated `playerFrames` and `playerMasks` arrays can be passed to
+`drawPageBitmapMasked()` one frame at a time. Keeping conversion offline avoids
+adding a legacy interleaved encoding to the runtime graphics API.
 
 ## Sound Sequences
 

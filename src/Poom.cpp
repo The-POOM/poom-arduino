@@ -109,6 +109,41 @@ void PoomClass::drawSpriteMasked(
     graphics_.drawSpriteMasked(x, y, frames, masks, width, height, frame);
 }
 
+void PoomClass::drawPageBitmap(
+    int16_t x,
+    int16_t y,
+    const uint8_t *bitmap,
+    uint8_t width,
+    uint8_t height
+)
+{
+    graphics_.drawPageBitmap(x, y, bitmap, width, height);
+}
+
+void PoomClass::drawPageBitmapMasked(
+    int16_t x,
+    int16_t y,
+    const uint8_t *bitmap,
+    const uint8_t *mask,
+    uint8_t width,
+    uint8_t height
+)
+{
+    graphics_.drawPageBitmapMasked(x, y, bitmap, mask, width, height);
+}
+
+void PoomClass::drawPageSprite(
+    int16_t x,
+    int16_t y,
+    const uint8_t *frames,
+    uint8_t width,
+    uint8_t height,
+    uint8_t frame
+)
+{
+    graphics_.drawPageSprite(x, y, frames, width, height, frame);
+}
+
 void PoomClass::setCursor(int16_t x, int16_t y)
 {
     framebuffer_.setCursor(x, y);

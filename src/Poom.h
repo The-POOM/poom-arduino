@@ -145,6 +145,58 @@ public:
     );
 
     /**
+     * @brief Draw a page-packed 1bpp bitmap into the framebuffer.
+     * @param x Destination X coordinate.
+     * @param y Destination Y coordinate.
+     * @param bitmap Page-packed bitmap data, with one vertical byte per column.
+     * @param width Bitmap width in pixels.
+     * @param height Bitmap height in pixels.
+     */
+    void drawPageBitmap(
+        int16_t x,
+        int16_t y,
+        const uint8_t *bitmap,
+        uint8_t width,
+        uint8_t height
+    );
+
+    /**
+     * @brief Draw a page-packed 1bpp bitmap through a separate mask.
+     * @param x Destination X coordinate.
+     * @param y Destination Y coordinate.
+     * @param bitmap Page-packed bitmap data.
+     * @param mask Page-packed mask data; set bits are drawable pixels.
+     * @param width Bitmap and mask width in pixels.
+     * @param height Bitmap and mask height in pixels.
+     */
+    void drawPageBitmapMasked(
+        int16_t x,
+        int16_t y,
+        const uint8_t *bitmap,
+        const uint8_t *mask,
+        uint8_t width,
+        uint8_t height
+    );
+
+    /**
+     * @brief Draw one frame from consecutive page-packed frames.
+     * @param x Destination X coordinate.
+     * @param y Destination Y coordinate.
+     * @param frames Consecutive page-packed frame data.
+     * @param width Frame width in pixels.
+     * @param height Frame height in pixels.
+     * @param frame Zero-based frame index.
+     */
+    void drawPageSprite(
+        int16_t x,
+        int16_t y,
+        const uint8_t *frames,
+        uint8_t width,
+        uint8_t height,
+        uint8_t frame
+    );
+
+    /**
      * @brief Set the text cursor used by print() and println().
      * @param x Cursor X coordinate in pixels.
      * @param y Cursor Y coordinate in pixels.
