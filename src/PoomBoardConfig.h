@@ -109,6 +109,13 @@
 #define POOM_DISPLAY_I2C_ADDR 0x3C
 #endif
 
+/** @def POOM_DISPLAY_I2C_CLOCK_HZ
+ *  @brief Default OLED I2C clock. The IMU selects its own 400 kHz clock.
+ */
+#ifndef POOM_DISPLAY_I2C_CLOCK_HZ
+#define POOM_DISPLAY_I2C_CLOCK_HZ 800000UL
+#endif
+
 /** @def POOM_DISPLAY_RESET_PIN
  *  @brief OLED reset pin, or -1 when no reset pin is used.
  */
@@ -128,6 +135,27 @@
  */
 #ifndef POOM_DISPLAY_X_SHIFT
 #define POOM_DISPLAY_X_SHIFT 0
+#endif
+
+/** @def POOM_IMU_DEFAULT_ADDRESS
+ *  @brief Default LSM6DS3TR-C I2C address when SA0 is high.
+ */
+#ifndef POOM_IMU_DEFAULT_ADDRESS
+#define POOM_IMU_DEFAULT_ADDRESS 0x6B
+#endif
+
+/** @def POOM_IMU_ALTERNATE_ADDRESS
+ *  @brief Alternate LSM6DS3TR-C I2C address when SA0 is low.
+ */
+#ifndef POOM_IMU_ALTERNATE_ADDRESS
+#define POOM_IMU_ALTERNATE_ADDRESS 0x6A
+#endif
+
+/** @def POOM_IMU_I2C_CLOCK_HZ
+ *  @brief I2C clock used for LSM6DS3TR-C transactions.
+ */
+#ifndef POOM_IMU_I2C_CLOCK_HZ
+#define POOM_IMU_I2C_CLOCK_HZ 400000UL
 #endif
 
 /** @def POOM_USE_NEOPIXEL

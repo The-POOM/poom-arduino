@@ -76,6 +76,21 @@ public:
      */
     void drawVerticalLine(int16_t x, int16_t y, int16_t height, bool on = true);
 
+    /** @brief Draw a clipped line between two endpoints. */
+    void drawLine(
+        int16_t x0,
+        int16_t y0,
+        int16_t x1,
+        int16_t y1,
+        bool on = true
+    );
+
+    /** @brief Draw a clipped circle outline. */
+    void drawCircle(int16_t x, int16_t y, int16_t radius, bool on = true);
+
+    /** @brief Draw a clipped filled circle. */
+    void fillCircle(int16_t x, int16_t y, int16_t radius, bool on = true);
+
     /**
      * @brief Draw a clipped filled rectangle.
      * @param x Left edge of the rectangle.
@@ -95,6 +110,48 @@ public:
      * @param on true to set pixels, false to clear them.
      */
     void drawRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on = true);
+
+    /** @brief Draw a clipped rounded rectangle outline. */
+    void drawRoundRect(
+        int16_t x,
+        int16_t y,
+        int16_t width,
+        int16_t height,
+        int16_t radius,
+        bool on = true
+    );
+
+    /** @brief Draw a clipped filled rounded rectangle. */
+    void fillRoundRect(
+        int16_t x,
+        int16_t y,
+        int16_t width,
+        int16_t height,
+        int16_t radius,
+        bool on = true
+    );
+
+    /** @brief Draw a clipped triangle outline. */
+    void drawTriangle(
+        int16_t x0,
+        int16_t y0,
+        int16_t x1,
+        int16_t y1,
+        int16_t x2,
+        int16_t y2,
+        bool on = true
+    );
+
+    /** @brief Draw a clipped filled triangle. */
+    void fillTriangle(
+        int16_t x0,
+        int16_t y0,
+        int16_t x1,
+        int16_t y1,
+        int16_t x2,
+        int16_t y2,
+        bool on = true
+    );
 
     /**
      * @brief Read one pixel.
@@ -138,6 +195,21 @@ private:
     bool contains(int16_t x, int16_t y) const;
     size_t indexFor(int16_t x, int16_t y) const;
     uint8_t bitFor(int16_t y) const;
+    void drawCircleHelper(
+        int16_t x,
+        int16_t y,
+        int16_t radius,
+        uint8_t corners,
+        bool on
+    );
+    void fillCircleHelper(
+        int16_t x,
+        int16_t y,
+        int16_t radius,
+        uint8_t sides,
+        int16_t delta,
+        bool on
+    );
     void drawChar(char value);
     void drawGlyphColumn(int16_t x, int16_t y, uint8_t bits, uint8_t scale);
     uint8_t glyphColumn(char value, uint8_t column) const;

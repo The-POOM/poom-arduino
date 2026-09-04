@@ -5,3 +5,5 @@ build/
 *.elf
 *.map
 .DS_Store
+!/examples/GamesArduboy/*/*.poom-esp32c5.bin
+/docs/ARDUBOY_FEATURE_AUDIT.md

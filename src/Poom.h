@@ -13,6 +13,7 @@
 #include "PoomFramebuffer.h"
 #include "PoomGraphics.h"
 #include "PoomLeds.h"
+#include "PoomStorage.h"
 
 /**
  * @brief Main facade for the Poom Arduino library.
@@ -71,11 +72,62 @@ public:
     /** @brief Draw a clipped vertical line into the framebuffer. */
     void drawVerticalLine(int16_t x, int16_t y, int16_t height, bool on = true);
 
+    /** @brief Draw a clipped line between two endpoints. */
+    void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, bool on = true);
+
+    /** @brief Draw a clipped circle outline. */
+    void drawCircle(int16_t x, int16_t y, int16_t radius, bool on = true);
+
+    /** @brief Draw a clipped filled circle. */
+    void fillCircle(int16_t x, int16_t y, int16_t radius, bool on = true);
+
     /** @brief Draw a clipped filled rectangle into the framebuffer. */
     void fillRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on = true);
 
     /** @brief Draw a clipped rectangle outline into the framebuffer. */
     void drawRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on = true);
+
+    /** @brief Draw a clipped rounded rectangle outline. */
+    void drawRoundRect(
+        int16_t x,
+        int16_t y,
+        int16_t width,
+        int16_t height,
+        int16_t radius,
+        bool on = true
+    );
+
+    /** @brief Draw a clipped filled rounded rectangle. */
+    void fillRoundRect(
+        int16_t x,
+        int16_t y,
+        int16_t width,
+        int16_t height,
+        int16_t radius,
+        bool on = true
+    );
+
+    /** @brief Draw a clipped triangle outline. */
+    void drawTriangle(
+        int16_t x0,
+        int16_t y0,
+        int16_t x1,
+        int16_t y1,
+        int16_t x2,
+        int16_t y2,
+        bool on = true
+    );
+
+    /** @brief Draw a clipped filled triangle. */
+    void fillTriangle(
+        int16_t x0,
+        int16_t y0,
+        int16_t x1,
+        int16_t y1,
+        int16_t x2,
+        int16_t y2,
+        bool on = true
+    );
 
     /**
      * @brief Read one framebuffer pixel.
@@ -196,6 +248,98 @@ public:
         uint8_t frame
     );
 
+    /** @brief Draw one page-packed frame through a separate mask frame. */
+    void drawPageSpriteMasked(
+        int16_t x,
+        int16_t y,
+        const uint8_t *frames,
+        const uint8_t *masks,
+        uint8_t width,
+        uint8_t height,
+        uint8_t frame
+    );
+
+    /** @brief Draw an image frame through an independently selected mask frame. */
+    void drawPageSpriteMasked(
+        int16_t x,
+        int16_t y,
+        const uint8_t *frames,
+        const uint8_t *masks,
+        uint8_t width,
+        uint8_t height,
+        uint8_t imageFrame,
+        uint8_t maskFrame
+    );
+
+    /** @brief Draw one frame stored as alternating page-packed image/mask bytes. */
+    void drawPageSpriteInterleavedMasked(
+        int16_t x,
+        int16_t y,
+        const uint8_t *frames,
+        uint8_t width,
+        uint8_t height,
+        uint8_t frame
+    );
+
+    /** @brief Clear pixels set in one page-packed sprite frame. */
+    void erasePageSprite(
+        int16_t x,
+        int16_t y,
+        const uint8_t *frames,
+        uint8_t width,
+        uint8_t height,
+        uint8_t frame
+    );
+
+    /** @brief Replace every pixel in one page-packed sprite rectangle. */
+    void overwritePageSprite(
+        int16_t x,
+        int16_t y,
+        const uint8_t *frames,
+        uint8_t width,
+        uint8_t height,
+        uint8_t frame
+    );
+
+    /** @brief Draw a frame from a page-packed asset with a width/height header. */
+    void drawPageAsset(int16_t x, int16_t y, const uint8_t *asset, uint8_t frame = 0);
+
+    /** @brief Draw a headered image asset through a separate headered mask asset. */
+    void drawPageAssetMasked(
+        int16_t x,
+        int16_t y,
+        const uint8_t *asset,
+        const uint8_t *mask,
+        uint8_t imageFrame = 0,
+        uint8_t maskFrame = 0
+    );
+
+    /** @brief Draw a frame from a headered asset containing image/mask byte pairs. */
+    void drawPageAssetInterleavedMasked(
+        int16_t x,
+        int16_t y,
+        const uint8_t *asset,
+        uint8_t frame = 0
+    );
+
+    /** @brief Clear set pixels from a frame in a headered page-packed asset. */
+    void erasePageAsset(int16_t x, int16_t y, const uint8_t *asset, uint8_t frame = 0);
+
+    /** @brief Replace the rectangle for a frame in a headered page-packed asset. */
+    void overwritePageAsset(int16_t x, int16_t y, const uint8_t *asset, uint8_t frame = 0);
+
+    /** @brief Draw an Arduboy-compatible compressed bitmap. */
+    void drawCompressed(int16_t x, int16_t y, const uint8_t *bitmap, bool on = true);
+
+    /** @brief Draw an Arduboy-compatible compressed bitmap with optional horizontal mirroring. */
+    void drawCompressedMirror(
+        int16_t x,
+        int16_t y,
+        const uint8_t *bitmap,
+        bool on = true,
+        bool mirror = false
+    );
+
     /**
      * @brief Set the text cursor used by print() and println().
      * @param x Cursor X coordinate in pixels.
@@ -233,8 +377,49 @@ public:
      */
     bool nextFrame();
 
+    /** @return Number of frames accepted by nextFrame() since begin(). */
+    uint32_t frameCount() const;
+
+    /** @return Configured fixed update rate in frames per second. */
+    uint8_t targetFrameRate() const;
+
+    /** @return Measured accepted update rate over the latest one-second window. */
+    uint16_t measuredFrameRate() const;
+
+    /** @return Number of update deadlines discarded after excessive stalls. */
+    uint32_t droppedFrameCount() const;
+
+    /** @return Lateness of the most recently accepted update in microseconds. */
+    uint32_t lastFrameLatenessMicros() const;
+
+    /**
+     * @brief Test whether the current frame is an interval boundary.
+     * @return false for interval zero; otherwise frameCount() modulo interval.
+     */
+    bool everyFrames(uint16_t interval) const;
+
     /** @brief Advance non-blocking services such as audio playback. */
     void update();
+
+    /** @return true when this application is running from POOM's OTA1 game slot. */
+    bool runningFromLauncher() const;
+
+    /**
+     * @brief Enable or disable the default A+B+Down hold-to-exit chord.
+     *
+     * The chord is only active when the application runs from the OTA1 game
+     * slot. It is enabled automatically in that slot by begin().
+     */
+    void enableExitChord(bool enabled = true);
+
+    /** @return true when automatic hold-to-exit handling is active. */
+    bool exitChordEnabled() const;
+
+    /**
+     * @brief Restart an OTA1 game so the POOM boot policy returns to the menu.
+     * @return false when not running from the launcher; does not return on success.
+     */
+    bool returnToLauncher();
 
     /**
      * @brief Test whether one or more buttons are currently pressed.
@@ -288,16 +473,38 @@ public:
     /** @brief Access onboard LED helpers. */
     PoomLeds &leds();
 
+    /** @brief Access namespaced ESP32 Preferences storage. */
+    PoomStorage &storage();
+
 private:
     bool frameTimerStarted_ = false;
-    uint32_t lastFrameMs_ = 0;
-    uint16_t frameIntervalMs_ = 1000 / 60;
+    bool frameMetricsStarted_ = false;
+    uint32_t nextFrameDeadlineUs_ = 0;
+    uint32_t frameCount_ = 0;
+    uint32_t framePeriodUs_ = 1000000UL / 60U;
+    uint32_t framePeriodRemainder_ = 1000000UL % 60U;
+    uint32_t frameRemainderAccumulator_ = 0;
+    uint32_t droppedFrameCount_ = 0;
+    uint32_t lastFrameLatenessUs_ = 0;
+    uint32_t frameMetricsStartUs_ = 0;
+    uint16_t frameMetricsCount_ = 0;
+    uint16_t measuredFrameRate_ = 0;
+    uint8_t targetFrameRate_ = 60;
+    bool runningFromLauncher_ = false;
+    bool exitChordEnabled_ = false;
+    bool exitChordHeld_ = false;
+    uint32_t exitChordStartedMs_ = 0;
     PoomDisplay display_;
     PoomFramebuffer framebuffer_;
     PoomGraphics graphics_;
     PoomButtons buttons_;
     PoomBuzzer buzzer_;
     PoomLeds leds_;
+    PoomStorage storage_;
+
+    void advanceFrameDeadline();
+    void recordAcceptedFrame(uint32_t nowUs);
+    void updateExitChord(uint32_t now);
 };
 
 /** @brief Global Poom library instance used by sketches. */

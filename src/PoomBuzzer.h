@@ -44,6 +44,18 @@ public:
     bool enabled() const;
 
     /**
+     * @brief Load the enabled state from the ESP32 Preferences namespace.
+     * @return The loaded state, or the current state on unsupported platforms.
+     */
+    bool loadEnabled();
+
+    /**
+     * @brief Persist the enabled state when it differs from the stored value.
+     * @return true when the state is stored or was already current.
+     */
+    bool saveEnabled() const;
+
+    /**
      * @brief Start a continuous tone.
      * @param frequency Tone frequency in hertz.
      */
@@ -62,6 +74,13 @@ public:
      */
     void play(const PoomNote *sequence);
 
+    /**
+     * @brief Play a non-blocking PoomNote sequence, optionally repeating it.
+     * @param sequence Null-terminated sequence ending with `{0, 0}`.
+     * @param repeat true to restart after the terminating note.
+     */
+    void play(const PoomNote *sequence, bool repeat);
+
     /** @brief Advance the active non-blocking sound sequence. */
     void update();
 
@@ -74,6 +93,7 @@ public:
 private:
     bool enabled_ = true;
     bool playing_ = false;
+    bool repeat_ = false;
     const PoomNote *sequence_ = nullptr;
     uint16_t sequenceIndex_ = 0;
     uint32_t noteEndMs_ = 0;
