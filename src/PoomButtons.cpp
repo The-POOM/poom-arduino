@@ -8,9 +8,48 @@ void PoomButtons::begin()
     pinMode(POOM_BUTTON_DOWN_PIN, INPUT_PULLUP);
     pinMode(POOM_BUTTON_A_PIN, INPUT_PULLUP);
     pinMode(POOM_BUTTON_B_PIN, INPUT_PULLUP);
+
+    currentState_ = readHardware();
+    previousState_ = currentState_;
+}
+
+void PoomButtons::update()
+{
+    previousState_ = currentState_;
+    currentState_ = readHardware();
+}
+
+uint8_t PoomButtons::state() const
+{
+    return currentState_;
 }
 
 uint8_t PoomButtons::read() const
+{
+    return state();
+}
+
+bool PoomButtons::pressed(uint8_t mask) const
+{
+    return (currentState_ & mask) == mask;
+}
+
+bool PoomButtons::anyPressed(uint8_t mask) const
+{
+    return (currentState_ & mask) != 0;
+}
+
+bool PoomButtons::justPressed(uint8_t mask) const
+{
+    return (currentState_ & static_cast<uint8_t>(~previousState_) & mask) != 0;
+}
+
+bool PoomButtons::justReleased(uint8_t mask) const
+{
+    return (previousState_ & static_cast<uint8_t>(~currentState_) & mask) != 0;
+}
+
+uint8_t PoomButtons::readHardware() const
 {
     uint8_t state = 0;
 
@@ -34,11 +73,6 @@ uint8_t PoomButtons::read() const
     }
 
     return state;
-}
-
-bool PoomButtons::pressed(uint8_t mask) const
-{
-    return (read() & mask) == mask;
 }
 
 bool PoomButtons::a() const

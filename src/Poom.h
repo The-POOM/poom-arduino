@@ -179,6 +179,30 @@ public:
      */
     bool pressed(uint8_t mask) const;
 
+    /** @return Button state captured at the start of the current frame. */
+    uint8_t buttonState() const;
+
+    /**
+     * @brief Test whether any requested button is pressed.
+     * @param mask Combination of PoomButtonMask values.
+     * @return true when at least one requested button is pressed.
+     */
+    bool anyPressed(uint8_t mask) const;
+
+    /**
+     * @brief Test whether any requested button was pressed this frame.
+     * @param mask Combination of PoomButtonMask values.
+     * @return true when at least one requested button changed to pressed.
+     */
+    bool justPressed(uint8_t mask) const;
+
+    /**
+     * @brief Test whether any requested button was released this frame.
+     * @param mask Combination of PoomButtonMask values.
+     * @return true when at least one requested button changed to released.
+     */
+    bool justReleased(uint8_t mask) const;
+
     /** @brief Access the OLED display driver wrapper. */
     PoomDisplay &screen();
 

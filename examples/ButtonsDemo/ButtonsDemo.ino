@@ -11,11 +11,16 @@ void showMessage(const __FlashStringHelper *message)
 void setup()
 {
     Poom.begin();
+    Poom.setFrameRate(20);
     showMessage(F("Press a button"));
 }
 
 void loop()
 {
+    if (!Poom.nextFrame()) {
+        return;
+    }
+
     if (Poom.pressed(PoomButtonA)) {
         showMessage(F("Button A"));
     } else if (Poom.pressed(PoomButtonB)) {
@@ -29,6 +34,4 @@ void loop()
     } else if (Poom.pressed(PoomButtonRight)) {
         showMessage(F("Right"));
     }
-
-    delay(50);
 }

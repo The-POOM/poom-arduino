@@ -139,6 +139,7 @@ bool PoomClass::nextFrame()
     if (!frameTimerStarted_) {
         frameTimerStarted_ = true;
         lastFrameMs_ = now;
+        buttons_.update();
         return true;
     }
 
@@ -147,6 +148,7 @@ bool PoomClass::nextFrame()
     }
 
     lastFrameMs_ = now;
+    buttons_.update();
     return true;
 }
 
@@ -158,6 +160,26 @@ void PoomClass::update()
 bool PoomClass::pressed(uint8_t mask) const
 {
     return buttons_.pressed(mask);
+}
+
+uint8_t PoomClass::buttonState() const
+{
+    return buttons_.state();
+}
+
+bool PoomClass::anyPressed(uint8_t mask) const
+{
+    return buttons_.anyPressed(mask);
+}
+
+bool PoomClass::justPressed(uint8_t mask) const
+{
+    return buttons_.justPressed(mask);
+}
+
+bool PoomClass::justReleased(uint8_t mask) const
+{
+    return buttons_.justReleased(mask);
 }
 
 PoomDisplay &PoomClass::screen()
