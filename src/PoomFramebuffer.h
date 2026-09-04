@@ -59,6 +59,44 @@ public:
     void drawPixel(int16_t x, int16_t y, bool on = true);
 
     /**
+     * @brief Draw a clipped horizontal line.
+     * @param x Left edge of the line.
+     * @param y Vertical position of the line.
+     * @param width Line width in pixels. Non-positive values draw nothing.
+     * @param on true to set pixels, false to clear them.
+     */
+    void drawHorizontalLine(int16_t x, int16_t y, int16_t width, bool on = true);
+
+    /**
+     * @brief Draw a clipped vertical line.
+     * @param x Horizontal position of the line.
+     * @param y Top edge of the line.
+     * @param height Line height in pixels. Non-positive values draw nothing.
+     * @param on true to set pixels, false to clear them.
+     */
+    void drawVerticalLine(int16_t x, int16_t y, int16_t height, bool on = true);
+
+    /**
+     * @brief Draw a clipped filled rectangle.
+     * @param x Left edge of the rectangle.
+     * @param y Top edge of the rectangle.
+     * @param width Rectangle width in pixels. Non-positive values draw nothing.
+     * @param height Rectangle height in pixels. Non-positive values draw nothing.
+     * @param on true to set pixels, false to clear them.
+     */
+    void fillRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on = true);
+
+    /**
+     * @brief Draw a clipped rectangle outline.
+     * @param x Left edge of the rectangle.
+     * @param y Top edge of the rectangle.
+     * @param width Rectangle width in pixels. Non-positive values draw nothing.
+     * @param height Rectangle height in pixels. Non-positive values draw nothing.
+     * @param on true to set pixels, false to clear them.
+     */
+    void drawRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on = true);
+
+    /**
      * @brief Read one pixel.
      * @param x Horizontal position, starting at 0.
      * @param y Vertical position, starting at 0.

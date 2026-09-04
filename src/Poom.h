@@ -65,6 +65,18 @@ public:
      */
     void drawPixel(int16_t x, int16_t y, bool on = true);
 
+    /** @brief Draw a clipped horizontal line into the framebuffer. */
+    void drawHorizontalLine(int16_t x, int16_t y, int16_t width, bool on = true);
+
+    /** @brief Draw a clipped vertical line into the framebuffer. */
+    void drawVerticalLine(int16_t x, int16_t y, int16_t height, bool on = true);
+
+    /** @brief Draw a clipped filled rectangle into the framebuffer. */
+    void fillRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on = true);
+
+    /** @brief Draw a clipped rectangle outline into the framebuffer. */
+    void drawRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on = true);
+
     /**
      * @brief Read one framebuffer pixel.
      * @param x Horizontal position, starting at 0.

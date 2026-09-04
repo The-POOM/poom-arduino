@@ -52,6 +52,122 @@ void PoomFramebuffer::drawPixel(int16_t x, int16_t y, bool on)
     }
 }
 
+void PoomFramebuffer::drawHorizontalLine(int16_t x, int16_t y, int16_t width, bool on)
+{
+    if (width <= 0 || y < 0 || y >= PoomScreenHeight) {
+        return;
+    }
+
+    int32_t startX = x;
+    int32_t endX = startX + width;
+
+    if (endX <= 0 || startX >= PoomScreenWidth) {
+        return;
+    }
+
+    if (startX < 0) {
+        startX = 0;
+    }
+    if (endX > PoomScreenWidth) {
+        endX = PoomScreenWidth;
+    }
+
+    size_t index = indexFor(static_cast<int16_t>(startX), y);
+    const uint8_t bit = bitFor(y);
+    const uint8_t clearMask = static_cast<uint8_t>(~bit);
+
+    for (int32_t drawX = startX; drawX < endX; ++drawX, ++index) {
+        if (on) {
+            pixels_[index] |= bit;
+        } else {
+            pixels_[index] &= clearMask;
+        }
+    }
+}
+
+void PoomFramebuffer::drawVerticalLine(int16_t x, int16_t y, int16_t height, bool on)
+{
+    if (height <= 0 || x < 0 || x >= PoomScreenWidth) {
+        return;
+    }
+
+    int32_t startY = y;
+    int32_t endY = startY + height;
+
+    if (endY <= 0 || startY >= PoomScreenHeight) {
+        return;
+    }
+
+    if (startY < 0) {
+        startY = 0;
+    }
+    if (endY > PoomScreenHeight) {
+        endY = PoomScreenHeight;
+    }
+
+    for (int32_t drawY = startY; drawY < endY; ++drawY) {
+        drawPixel(x, static_cast<int16_t>(drawY), on);
+    }
+}
+
+void PoomFramebuffer::fillRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on)
+{
+    if (width <= 0 || height <= 0) {
+        return;
+    }
+
+    int32_t startX = x;
+    int32_t startY = y;
+    int32_t endX = startX + width;
+    int32_t endY = startY + height;
+
+    if (endX <= 0 || endY <= 0 || startX >= PoomScreenWidth || startY >= PoomScreenHeight) {
+        return;
+    }
+
+    if (startX < 0) {
+        startX = 0;
+    }
+    if (startY < 0) {
+        startY = 0;
+    }
+    if (endX > PoomScreenWidth) {
+        endX = PoomScreenWidth;
+    }
+    if (endY > PoomScreenHeight) {
+        endY = PoomScreenHeight;
+    }
+
+    const int16_t clippedX = static_cast<int16_t>(startX);
+    const int16_t clippedWidth = static_cast<int16_t>(endX - startX);
+    for (int32_t drawY = startY; drawY < endY; ++drawY) {
+        drawHorizontalLine(clippedX, static_cast<int16_t>(drawY), clippedWidth, on);
+    }
+}
+
+void PoomFramebuffer::drawRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on)
+{
+    if (width <= 0 || height <= 0) {
+        return;
+    }
+
+    const int32_t right = static_cast<int32_t>(x) + width - 1;
+    const int32_t bottom = static_cast<int32_t>(y) + height - 1;
+
+    if (y >= 0 && y < PoomScreenHeight) {
+        drawHorizontalLine(x, y, width, on);
+    }
+    if (bottom >= 0 && bottom < PoomScreenHeight) {
+        drawHorizontalLine(x, static_cast<int16_t>(bottom), width, on);
+    }
+    if (x >= 0 && x < PoomScreenWidth) {
+        drawVerticalLine(x, y, height, on);
+    }
+    if (right >= 0 && right < PoomScreenWidth) {
+        drawVerticalLine(static_cast<int16_t>(right), y, height, on);
+    }
+}
+
 bool PoomFramebuffer::getPixel(int16_t x, int16_t y) const
 {
     if (!contains(x, y)) {

@@ -49,6 +49,26 @@ void PoomClass::drawPixel(int16_t x, int16_t y, bool on)
     framebuffer_.drawPixel(x, y, on);
 }
 
+void PoomClass::drawHorizontalLine(int16_t x, int16_t y, int16_t width, bool on)
+{
+    framebuffer_.drawHorizontalLine(x, y, width, on);
+}
+
+void PoomClass::drawVerticalLine(int16_t x, int16_t y, int16_t height, bool on)
+{
+    framebuffer_.drawVerticalLine(x, y, height, on);
+}
+
+void PoomClass::fillRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on)
+{
+    framebuffer_.fillRect(x, y, width, height, on);
+}
+
+void PoomClass::drawRect(int16_t x, int16_t y, int16_t width, int16_t height, bool on)
+{
+    framebuffer_.drawRect(x, y, width, height, on);
+}
+
 bool PoomClass::getPixel(int16_t x, int16_t y) const
 {
     return framebuffer_.getPixel(x, y);
