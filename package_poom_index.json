@@ -1,0 +1,34 @@
+{
+  "packages": [
+    {
+      "name": "poom",
+      "maintainer": "Michelle Mendez, Jonathan Cagua",
+      "websiteURL": "https://github.com/The-POOM/poom-arduino",
+      "email": "",
+      "help": {
+        "online": "https://github.com/The-POOM/poom-arduino"
+      },
+      "platforms": [
+        {
+          "name": "Poom",
+          "architecture": "esp32",
+          "version": "1.0.0",
+          "category": "Contributed",
+          "url": "https://github.com/The-POOM/poom-arduino/releases/download/1.0.0/poom-esp32-1.0.0.zip",
+          "archiveFileName": "poom-esp32-1.0.0.zip",
+          "checksum": "SHA-256:a6f5d12c8df009baeef8f8cb090bd79959c2c22b74ae8f37b3e7c973a9f9b81c",
+          "size": "4123",
+          "help": {
+            "online": "https://github.com/The-POOM/poom-arduino"
+          },
+          "boards": [
+            {
+              "name": "Poom C5"
+            }
+          ],
+          "toolsDependencies": []
+        }
+      ]
+    }
+  ]
+}

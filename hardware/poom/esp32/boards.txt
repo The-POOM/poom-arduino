@@ -1,0 +1,136 @@
+menu.CDCOnBoot=USB CDC On Boot
+menu.CPUFreq=CPU Frequency
+menu.DebugLevel=Core Debug Level
+menu.EraseFlash=Erase All Flash Before Sketch Upload
+menu.FlashFreq=Flash Frequency
+menu.FlashMode=Flash Mode
+menu.FlashSize=Flash Size
+menu.JTAGAdapter=JTAG Adapter
+menu.PartitionScheme=Partition Scheme
+menu.PSRAM=PSRAM
+menu.UploadSpeed=Upload Speed
+menu.ZigbeeMode=Zigbee Mode
+
+poom_c5.name=Poom C5
+
+poom_c5.bootloader.tool=esptool_py
+poom_c5.bootloader.tool.default=esptool_py
+
+poom_c5.upload.tool=esptool_py
+poom_c5.upload.tool.default=esptool_py
+poom_c5.upload.tool.network=esp_ota
+
+poom_c5.upload.maximum_size=1310720
+poom_c5.upload.maximum_data_size=327680
+poom_c5.upload.flags=
+poom_c5.upload.extra_flags=
+poom_c5.upload.use_1200bps_touch=false
+poom_c5.upload.wait_for_upload_port=false
+
+poom_c5.serial.disableDTR=false
+poom_c5.serial.disableRTS=false
+
+poom_c5.build.tarch=riscv32
+poom_c5.build.target=esp
+poom_c5.build.mcu=esp32c5
+poom_c5.build.core=esp32:esp32
+poom_c5.build.variant=poom_c5
+poom_c5.build.board=POOM_ESP32C5
+poom_c5.build.bootloader_addr=0x2000
+poom_c5.build.cdc_on_boot=1
+poom_c5.build.f_cpu=240000000L
+poom_c5.build.flash_size=4MB
+poom_c5.build.flash_freq=80m
+poom_c5.build.flash_mode=qio
+poom_c5.build.boot=qio
+poom_c5.build.partitions=default
+poom_c5.build.defines=-DPOOM_BOARD -DPOOM_TARGET_ESP32C5 -DI2C_SDA_PIN=0 -DI2C_SCL_PIN=1 -DPIN_NUM_MISO=8 -DPIN_NUM_MOSI=4 -DPIN_NUM_CLK=6 -DPIN_NUM_CS=5 -DPIN_NUM_WS2812=27 -DPIN_NUM_A=28 -DPIN_NUM_B=9 -DPIN_NUM_LEFT=3 -DPIN_NUM_RIGHT=23 -DPIN_NUM_UP=7 -DPIN_NUM_DOWN=24 -DPIN_NUM_BUZZER=26 -DPIN_NUM_INT_NFC=2 -DPIN_NUM_IR_TX=25 -DPIN_NUM_IR_RX=10 -DPOOM_I2C_SDA_PIN=0 -DPOOM_I2C_SCL_PIN=1 -DPOOM_SD_MISO_PIN=8 -DPOOM_SD_MOSI_PIN=4 -DPOOM_SD_SCK_PIN=6 -DPOOM_SD_CS_PIN=5 -DPOOM_BUTTON_A_PIN=28 -DPOOM_BUTTON_B_PIN=9 -DPOOM_BUTTON_LEFT_PIN=3 -DPOOM_BUTTON_RIGHT_PIN=23 -DPOOM_BUTTON_UP_PIN=7 -DPOOM_BUTTON_DOWN_PIN=24 -DPOOM_BUZZER_PIN=26 -DPOOM_NEOPIXEL_PIN=27 -DPOOM_LED_COUNT=9 -DPOOM_NFC_INT_PIN=2 -DPOOM_IR_TX_PIN=25 -DPOOM_IR_RX_PIN=10
+
+poom_c5.menu.JTAGAdapter.default=Disabled
+poom_c5.menu.JTAGAdapter.default.build.copy_jtag_files=0
+poom_c5.menu.JTAGAdapter.builtin=Integrated USB JTAG
+poom_c5.menu.JTAGAdapter.builtin.build.openocdscript=esp32c5-builtin.cfg
+poom_c5.menu.JTAGAdapter.builtin.build.copy_jtag_files=1
+poom_c5.menu.JTAGAdapter.external=FTDI Adapter
+poom_c5.menu.JTAGAdapter.external.build.openocdscript=esp32c5-ftdi.cfg
+poom_c5.menu.JTAGAdapter.external.build.copy_jtag_files=1
+poom_c5.menu.JTAGAdapter.bridge=ESP USB Bridge
+poom_c5.menu.JTAGAdapter.bridge.build.openocdscript=esp32c5-bridge.cfg
+poom_c5.menu.JTAGAdapter.bridge.build.copy_jtag_files=1
+
+poom_c5.menu.PSRAM.disabled=Disabled
+poom_c5.menu.PSRAM.disabled.build.defines=
+poom_c5.menu.PSRAM.enabled=Enabled
+poom_c5.menu.PSRAM.enabled.build.defines=-DBOARD_HAS_PSRAM
+
+poom_c5.menu.CDCOnBoot.default=Enabled
+poom_c5.menu.CDCOnBoot.default.build.cdc_on_boot=1
+poom_c5.menu.CDCOnBoot.disabled=Disabled
+poom_c5.menu.CDCOnBoot.disabled.build.cdc_on_boot=0
+
+poom_c5.menu.PartitionScheme.default=Default 4MB with SPIFFS (1.2MB APP/1.5MB SPIFFS)
+poom_c5.menu.PartitionScheme.default.build.partitions=default
+poom_c5.menu.PartitionScheme.huge_app=Huge APP (3MB No OTA/1MB SPIFFS)
+poom_c5.menu.PartitionScheme.huge_app.build.partitions=huge_app
+poom_c5.menu.PartitionScheme.huge_app.upload.maximum_size=3145728
+poom_c5.menu.PartitionScheme.no_fs=No FS 4MB (2MB APP x2)
+poom_c5.menu.PartitionScheme.no_fs.build.partitions=no_fs
+poom_c5.menu.PartitionScheme.no_fs.upload.maximum_size=2031616
+poom_c5.menu.PartitionScheme.no_ota=No OTA (2MB APP/2MB SPIFFS)
+poom_c5.menu.PartitionScheme.no_ota.build.partitions=no_ota
+poom_c5.menu.PartitionScheme.no_ota.upload.maximum_size=2097152
+
+poom_c5.menu.CPUFreq.240=240MHz (WiFi)
+poom_c5.menu.CPUFreq.240.build.f_cpu=240000000L
+poom_c5.menu.CPUFreq.120=120MHz (WiFi)
+poom_c5.menu.CPUFreq.120.build.f_cpu=120000000L
+poom_c5.menu.CPUFreq.80=80MHz (WiFi)
+poom_c5.menu.CPUFreq.80.build.f_cpu=80000000L
+
+poom_c5.menu.FlashMode.qio=QIO
+poom_c5.menu.FlashMode.qio.build.flash_mode=dio
+poom_c5.menu.FlashMode.qio.build.boot=qio
+poom_c5.menu.FlashMode.dio=DIO
+poom_c5.menu.FlashMode.dio.build.flash_mode=dio
+poom_c5.menu.FlashMode.dio.build.boot=dio
+
+poom_c5.menu.FlashFreq.80=80MHz
+poom_c5.menu.FlashFreq.80.build.flash_freq=80m
+poom_c5.menu.FlashFreq.40=40MHz
+poom_c5.menu.FlashFreq.40.build.flash_freq=40m
+
+poom_c5.menu.FlashSize.4M=4MB (32Mb)
+poom_c5.menu.FlashSize.4M.build.flash_size=4MB
+poom_c5.menu.FlashSize.8M=8MB (64Mb)
+poom_c5.menu.FlashSize.8M.build.flash_size=8MB
+poom_c5.menu.FlashSize.16M=16MB (128Mb)
+poom_c5.menu.FlashSize.16M.build.flash_size=16MB
+
+poom_c5.menu.UploadSpeed.921600=921600
+poom_c5.menu.UploadSpeed.921600.upload.speed=921600
+poom_c5.menu.UploadSpeed.460800=460800
+poom_c5.menu.UploadSpeed.460800.upload.speed=460800
+poom_c5.menu.UploadSpeed.115200=115200
+poom_c5.menu.UploadSpeed.115200.upload.speed=115200
+
+poom_c5.menu.DebugLevel.none=None
+poom_c5.menu.DebugLevel.none.build.code_debug=0
+poom_c5.menu.DebugLevel.error=Error
+poom_c5.menu.DebugLevel.error.build.code_debug=1
+poom_c5.menu.DebugLevel.warn=Warn
+poom_c5.menu.DebugLevel.warn.build.code_debug=2
+poom_c5.menu.DebugLevel.info=Info
+poom_c5.menu.DebugLevel.info.build.code_debug=3
+poom_c5.menu.DebugLevel.debug=Debug
+poom_c5.menu.DebugLevel.debug.build.code_debug=4
+poom_c5.menu.DebugLevel.verbose=Verbose
+poom_c5.menu.DebugLevel.verbose.build.code_debug=5
+
+poom_c5.menu.EraseFlash.none=Disabled
+poom_c5.menu.EraseFlash.none.upload.erase_cmd=
+poom_c5.menu.EraseFlash.all=Enabled
+poom_c5.menu.EraseFlash.all.upload.erase_cmd=-e
+
+poom_c5.menu.ZigbeeMode.default=Disabled
+poom_c5.menu.ZigbeeMode.default.build.zigbee_mode=
+poom_c5.menu.ZigbeeMode.default.build.zigbee_libs=

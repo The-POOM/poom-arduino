@@ -1,0 +1,6 @@
+name=Poom
+version=1.0.0
+
+# Poom is packaged as a board-definition overlay for the Espressif Arduino ESP32
+# core. `boards.txt` references `esp32:esp32` as the core, while this package
+# provides the Poom board ID and variant pin map.
